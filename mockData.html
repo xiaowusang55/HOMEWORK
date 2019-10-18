@@ -10,10 +10,22 @@
 
 <body>
 
-  <div id="display"></div>
-  <script id="tpl" type="text/html">
-
-  </script>
+  <script type="text/html" id="tplfloorTab">
+	<div>
+		<%--<button type="button" floor-data="" onclick="navRoomVoList(this)" class="layui-btn layui-btn-primary layui-btn-sm">全部</button>--%>
+			<select class="layui-btn-primary layui-btn-sm  ml10" name="bulidid" id="bulidid" onchange="navRoomVoList()">
+				<option value="">全部</option>
+				{{each roombuildList item i}}
+				<option value="{{item.bulidid}}">{{item.bulidName}}</option>
+				{{/each}}
+			</select>
+		<div class="bf-info">
+			{{each roomfloorList item i}}
+				<button type="button" floor-data="{{item.buildID}}-{{item.floorID}}" onclick="navRoomVoList(this)" class="layui-btn layui-btn-primary layui-btn-sm ml10">{{item.buildID}}栋{{item.floorID}}层({{item.count}})</button>
+			{{/each}}
+		</div>
+	</div>
+</script>
 
   <script src="./js/template.js"></script>
   <script src="./js/template-web.js"></script>
