@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="showData"></div>
+  <div class="btn">
+      <button class="btn-prev">prev</button>
+      <button class="btn-next">next</button>
+    </div>
+  <script id="tpl" type="text/html">
+    {{each respData.roomfloorList item i}}
+				<button type="button" floor-data="{{item.buildID}}-{{item.floorID}}">{{item.buildID}}栋{{item.floorID}}层({{item.count}})</button>
+		{{/each}}
+  </script>
+
+  <script src="./js/template-web.js"></script>
+  <script>
+    
+    mockData = {
+      respData: {
+        roombuildList: [{
+          bulidName: "一栋",
+          bulidid: "1",
+          bussID: "0609600000120170914",
+          id: 1,
+          isable: 1
+        }, {
+          bulidName: "二栋",
+          bulidid: "2",
+          bussID: "0609600000120170914",
+          id: 2,
+          isable: 1
+        }, {
+          bulidName: "三栋",
+          bulidid: "3",
+          bussID: "0609600000120170914",
+          id: 3,
+          isable: 1
+        }, {
+          bulidName: "四栋",
+          bulidid: "4",
+          bussID: "0609600000120170914",
+          id: 4,
+          isable: 1
+        }, {
+          bulidName: "五栋",
+          bulidid: "5",
+          bussID: "0609600000120170914",
+          id: 5,
+          isable: 1
+        }, {
+          bulidName: "六栋",
+          bulidid: "6",
+          bussID: "0609600000120170914",
+          id: 6,
+          isable: 1
+        }, ],
+        roomfloorList: [{
+          buildID: "1",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "1",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "1",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "1",
+          count: 2,
+          floorID: "4"
+        }, {
+          buildID: "1",
+          count: 2,
+          floorID: "5"
+        }, {
+          buildID: "1",
+          count: 2,
+          floorID: "6"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "4"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "5"
+        }, {
+          buildID: "2",
+          count: 2,
+          floorID: "6"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "4"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "5"
+        }, {
+          buildID: "3",
+          count: 2,
+          floorID: "6"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "4"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "5"
+        }, {
+          buildID: "4",
+          count: 2,
+          floorID: "6"
+        }, {
+          buildID: "5",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "5",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "5",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "5",
+          count: 2,
+          floorID: "4"
+        }, {
+          buildID: "6",
+          count: 2,
+          floorID: "1"
+        }, {
+          buildID: "6",
+          count: 2,
+          floorID: "2"
+        }, {
+          buildID: "6",
+          count: 2,
+          floorID: "3"
+        }, {
+          buildID: "6",
+          count: 2,
+          floorID: "4"
+        }]
+      }
+    }
+    showBulidIdAndFloor(2, 4);
+    function showBulidIdAndFloor (currentP, pSize) {
+      let arrLength = mockData.respData.roomfloorList.length;
+      let pageSize = pSize;
+      let totalPage = (arrLength/pageSize) > parseInt(arrLength/pageSize) ? parseInt(arrLength/pageSize) + 1 : parseInt(arrLength/pageSize);
+      // console.log(arrLength, totalPage);
+      let currentPage = currentP;
+      let startRow = (currentPage - 1) * pageSize + 1;
+      let endRow = currentPage * pageSize;
+      endRow = endRow > arrLength ? arrLength : endRow;
+      let newRoomfloorList = [];
+      let newMockData = {};
+      newMockData.respData = {};
+
+      for (let i = 1; i < (arrLength + 1); i++) {
+        let finalShowInfo = mockData.respData.roomfloorList[i - 1];
+        if (i >= startRow && i <= endRow) {
+          newRoomfloorList.push(finalShowInfo);
+        }
+      }  
+      //divided data
+      // console.log(newRoomfloorList);
+      newMockData.respData.roombuildList = mockData.respData.roombuildList;
+      newMockData.respData.roomfloorList = newRoomfloorList;
+      // console.log(newMockData);
+
+      document.querySelector('.btn-prev').addEventListener('click', () => {
+        currentPage--;
+        showBulidIdAndFloor(currentPage, pSize);
+      })
+      document.querySelector('.btn-next').addEventListener('click', () => {
+        currentPage++;
+        showBulidIdAndFloor(currentPage, pSize);
+      })
+
+      let html = template('tpl', newMockData);
+      document.querySelector('#showData').innerHTML = html;
+    }
+
+    
+
+  </script>
+
+</body>
+
+</html>
