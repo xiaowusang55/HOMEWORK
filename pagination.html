@@ -43,6 +43,13 @@
     </table>
 
     <script>
+      /**
+      * 分页函数
+      * pno--页数
+      * psize--每页显示记录数
+      * 分页部分是从真实数据行开始，因而存在加减某个常数，以确定真正的记录数
+      * 纯js分页实质是数据行全部加载，通过是否显示属性完成分页功能
+      **/
       function goPage(pno, psize) {
         let itable = document.getElementById("idData");
         let num = itable.rows.length; //表格所有行
