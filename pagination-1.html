@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body onload="goPage(1, 7);">
+  <table id="idData" width="70%">
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+    <tr><td>user2</td><td>25</td><td>male</td><td>shenzhen</td></tr>
+  </table>
+  <table width="60%" align="right">
+    <tr><td><div id="barcon" name="barcon"></div></td></tr>
+  </table>
+
+  <script>
+    /**
+     *分页函数
+     *pno--页数
+     *psize--每页显示记录数
+     *分页部分是从真实数据行开始，因而存在加减某个常数，以确定真正的记录数
+     *纯js分页实质是数据行全部加载，通过是否显示属性完成分页功能
+     **/
+    function goPage(pno, psize) {
+      let itable = document.querySelector('#idData');
+      let num = itable.rows.length;//表格所有行数（所有记录数）
+      console.log(num);
+      let totalPage = 0;//总页数
+      let pageSize = psize;//每页显示行数
+      //总共分几页
+      if(num/pageSize > parseInt(num/pageSize)) {
+        totalPage = parseInt(num/pageSize) + 1;
+      } else {
+        totalPage = parseInt(num/pageSize);
+      }
+      let currentPage = pno;//当前分页
+      let startRow = (currentPage - 1) * pageSize + 1; //当前所在页开始显示的行
+      let endRow = currentPage * pageSize;//当前所在页结束显示的行
+      endRow = (endRow > num) ? num : endRow;
+      //遍历显示数据实现分页
+      for(let i = 1; i < (num + 1); i++) {
+        let irow = itable.rows[i - 1];
+        if(i >= startRow && i <= endRow) {
+          irow.style.display = 'block';
+        } else {
+          irow.style.display = 'none';
+        }
+      }
+      let tempStr = `共 <b>${num}</b> 条记录 分 <b>${totalPage}</b> 页 当前第 <b>${currentPage}</b> 页`;
+      if (currentPage > 1) {
+        tempStr += `<a href="#" onClick="goPage(1, ${psize})"> <button>首页</button> </a>`;
+        tempStr += `<a href="#" onClick="goPage(${currentPage - 1}, ${psize})"><button>上一页</button></a>`;
+      } else {
+        tempStr += ` <b>已经是首页了哦</b> `;
+      }
+      if (currentPage < totalPage) {
+        tempStr += `<a href="#" onClick="goPage(${currentPage + 1}, ${psize})"><button>下一页</button></a> `;
+        tempStr += `<a href="#" onClick="goPage(${totalPage}, ${psize})"> <button>尾页</button> </a>`
+      } else {
+        tempStr += ` <b>已经是最后一页了哦</b> `
+      }
+
+      document.querySelector('#barcon').innerHTML = tempStr;
+    }
+
+  </script>
+
+</body>
+</html>
