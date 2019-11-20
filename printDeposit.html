@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .dflex {
+      display: flex;
+    }
+    .ml56 {
+      margin-left: 56px;
+    }
+    .ml210 {
+      margin-left: 210px;
+    }
+    .mr14 {
+      margin-right: 14px;
+    }
+    .print-deposit {
+      width: 850px;
+      max-height: 636px;
+      border: 1px solid;
+    }
+    .print-deposit input,
+    .print-deposit label 
+    {
+      cursor: pointer;
+    }
+    .pd-table {
+      padding: 14px;
+    }
+    .pd-table table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+    .pd-table table thead tr th,
+    .pd-table table tbody tr td
+    {
+      padding: 16px 0;
+      text-align: left;
+    }
+    .pd-table table thead tr th {
+      background-color: #f7f7f7;
+    }
+    .pd-table table tbody tr td {
+      border-bottom: 1px solid #e9e9e9;
+    }
+    .pd-bottom-secret {
+      border-top: 1px solid #e9e9e9;
+      font-size: 14px;
+    }
+    .pbs-btn {
+      text-align: center;
+      margin-top: 16px;
+    }
+    .pbs-btn button {
+      width: 55px;
+      height: 29px;
+      border: 1px solid #d9d9d9;
+      background-color: #fff;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+    .pbs-btn .pb-comfirm {
+      border: 1px solid transparent;
+      background-color: #1b8de6;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="print-deposit" id="print-deposit" :data-list="JSON.stringify(checked)" :data-secret="JSON.stringify(secret)">
+    <div class="pd-table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>日期</th>
+            <th>房间</th>
+            <th>金额</th>
+            <th>支付方式</th>
+            <th>打印次数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in fake" :key="index" v-cloak>
+            <td><input type="checkbox" v-model="checked" :value="item" @click="selectOne"></td>
+            <td v-cloak>{{item.date}}</td>
+            <td v-cloak>{{item.roomNo}}</td>
+            <td v-cloak>{{item.total}}</td>
+            <td v-cloak>{{item.payway}}</td>
+            <td v-cloak>{{item.printCount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pd-bottom-secret dflex ">
+      <div class="pbs-secret dflex ml56">
+        <p class="mr14">
+          <input type="checkbox" id="ps-cb1" v-model="secret" value="price">
+          <label for="ps-cb1" >房价保密</label>
+        </p>
+        <p>
+          <input type="checkbox" id="ps-cb2" v-model="secret" value="idNo">
+          <label for="ps-cb2" >身份证号保密</label>
+        </p>
+      </div>
+      <div class="pbs-btn ml210">
+        <button class="pb-comfirm" @click="printDepositConfirm">确定</button>
+        <button>取消</button>
+        <h1>{{checked}}</h1>
+        <h1>{{secret}}</h1>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.layuicdn.com/layui-v2.5.5/css/layui.css"></script>
+  <script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+  <script src="../lib/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#print-deposit',
+      data: {
+        fake: [
+          {
+            date: '2019-11-19 09:08:58',
+            roomNo: '886132',
+            total: '100',
+            payway: '现金',
+            printCount: 0,
+            price: '999',
+            idNo: '3123213132313123135'
+          },
+          {
+            date: '2019-11-20 09:08:58',
+            roomNo: '886213',
+            total: '1010',
+            payway: '现金',
+            printCount: 1,
+            price: '9ddf99',
+            idNo: '3123213132313123131'
+          },
+          {
+            date: '2019-11-19 09:08:58',
+            roomNo: '886135',
+            total: '100',
+            payway: '现金',
+            printCount: 10,
+            price: '99sf92',
+            idNo: '31232131323131231323'
+          },
+        ],
+        checked: [],
+        secret: [],
+      },
+      methods: {
+        selectOne() {
+          if(this.checked) {
+            this.checked = [];
+          }
+        },
+        printDepositConfirm() {
+          layui.use('layer', function() {
+            let layer = layui.layer;
+
+            layer.open({
+              type: 2,
+              title: '押金单',
+              area: ['800px', '550px'],
+              content: './printDepositContent.html'
+            })
+          })
+        }
+      },
+
+    })
+  
+  </script>
+
+</body>
+</html>

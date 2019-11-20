@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="print-deposit-content" id="print-deposit-content">
+    <div class="pdc-main" 
+      v-for="(item, index) in dataSource" :key="index"  
+    >
+      <h4>金天鹅连锁马王堆店1押金单</h4>
+      <div class="pm-caption">
+        <div>
+          <p>
+            <span>打印时间：</span>
+            <span>2019-11-20 06:58</span>
+          </p>
+          <p>
+            <span>打印次数：</span>
+            <span>1</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            <span>订单号：</span>
+            <span>ZU21R1119003</span>
+          </p>
+          <p>
+            <span>NO.</span>
+            <span>1911200658537503</span>
+          </p>
+        </div>
+      </div>
+      <div class="pm-details">
+        <ul>
+          <li>
+            <p>
+              <span>预交金额</span>
+              <span>Deposit</span>
+            </p>
+            <p>100</p>
+          </li>
+          <li>
+            <p>
+              <span>支付方式</span>
+              <span>PayMethod</span>
+            </p>
+            <p>现金</p>
+          </li>
+          <li>
+            <p>
+              <span>宾客姓名</span>
+              <span>Name</span>
+            </p>
+            <p>盛大收购</p>
+          </li>
+          <li>
+            <p>
+              <span>宾客电话</span>
+              <span>Tel</span>
+            </p>
+            <p>暂无</p>
+          </li>
+          <li>
+            <p>
+              <span>房号</span>
+              <span>Room</span>
+            </p>
+            <p>88613</p>
+          </li>
+          <li>
+            <p>
+              <span>房价</span>
+              <span>Price</span>
+            </p>
+            <p>{{ (dataSecret.length && dataSecret.indexOf(item.price) !== -1) ? item.price : '******' }}</p>
+          </li>
+          <li>
+            <p>
+              <span>计费规则</span>
+              <span>Rules</span>
+            </p>
+            <p>散客入住</p>
+          </li>
+          <li>
+            <p>
+              <span>到店时间</span>
+              <span>Checkin</span>
+            </p>
+            <p>11-19 09:02</p>
+          </li>
+        </ul>
+        <div>
+          <p>
+            <span>离店时间</span>
+            <span>Checkout</span>
+          </p>
+          <p>11-20 18:03</p>
+        </div>
+        <div>
+          <p>
+            <span>身份证号</span>
+            <span>ID Card</span>
+          </p>
+          <p>768768768768868</p>
+        </div>
+        <div>
+          <p>
+            <span>团队/联房</span>
+            <span>Team/Terraced</span>
+          </p>
+          <p>88613, 8105</p>
+        </div>
+      </div>
+      <div class="pm-notice">
+        <p>
+          宾客须知：1.旅客凭此单据及房卡退房并交还总台，超过13:00加收半天，超过18:00加收全费。退房时间以本单为准。 
+          2.请凭押金单（红联）结帐，遗失不补，不做报销凭证。 
+          3.此预收单需要在开出一个月内办理结帐手续，否则作废。 4.贵重物品和现金请寄存,如有丢失宾馆概不负责。
+        </p>
+      </div>
+      <div class="pm-contact">
+        <div>
+          <p>
+            <span>酒店地址：</span>
+            <span>科佳摄影城</span>
+          </p>
+          <p>
+            <span>联系电话：</span>
+            <span>180966666666</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            <span>收银员：</span>
+            <span>test</span>
+          </p>
+          <p>
+            <span>宾客签名：</span>
+            <span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="pdc-btn">
+      <button>确定</button>
+      <button>取消</button>
+    </div>
+  </div>
+
+
+  <script src="../lib/jquery-3.4.1.js"></script>
+  <script src="../lib/vue.js"></script>
+  <script>
+    let dataList = $(window.parent.document)[0].body.children[0].dataset.list;
+    let dataSct = $(window.parent.document)[0].body.children[0].dataset.secret;
+    
+    let vm = new Vue({
+      el: '#print-deposit-content',
+      data: {
+        dataSource: dataList,
+        dataSecret: dataSct 
+      }
+    })
+  </script>
+</body>
+</html>
